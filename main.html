@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Grandma!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #fff1f6;
+            margin: 0;
+            padding: 32px;
+        }
+        h1 {
+            font-size: 36px;
+            color: #E87A9D;
+        }
+        p {
+            font-size: 20px;
+            margin: 1%;
+            color: #2f2f2f;
+        }
+        .photo-container {
+            width: 300px;
+            margin: 20px auto;
+        }
+        .photo-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .gift-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .gift {
+            font-size: 120px;
+            cursor: pointer;
+            display: inline-block;
+            animation: bounce 1s infinite alternate;
+        }
+        .gift-text {
+            display: block;
+            font-size: 20px;
+            color: #E87A9D;
+            margin-top: -10px;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1000;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .emoji {
+            position: fixed;
+            font-size: 52px;
+            opacity: 1;
+            animation: fly 3s ease-out forwards; /* Замедлили разлет */
+        }
+        @keyframes fly {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) rotate(720deg); opacity: 0; }
+        }
+    </style>
+    <script>
+        function showPopup() {
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+            launchConfetti();
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        function launchConfetti() {
+            for (let i = 0; i < 30; i++) {
+                let confetti = document.createElement("div");
+                confetti.innerHTML = "🎉";
+                confetti.className = "emoji";
+
+                let startX = Math.random() * window.innerWidth;
+                let startY = Math.random() * window.innerHeight;
+                let endX = (Math.random() - 0.5) * 400 + "px";
+                let endY = -(Math.random() * 300 + 100) + "px";
+
+                confetti.style.left = startX + "px";
+                confetti.style.top = startY + "px";
+                confetti.style.setProperty("--x", endX);
+                confetti.style.setProperty("--y", endY);
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    document.body.removeChild(confetti);
+                }, 3000); /* Продлили жизнь смайликов */
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>Дорогая Бабушка, с Днем Рождения!</h1>
+<div>
+    <p>Ты душу вложила в детей и внуков,</p>
+    <p>Всегда согревала, любила, ждала.</p>
+    <p>Ты — наш очаг, наше сердце и чудо,</p>
+    <p>Опора, поддержка, родная душа.</p>
+</div>
+
+<div class="photo-container">
+    <img src="grandma.png" alt="Фото бабушки">
+</div>
+<div class="gift-container">
+    <div class="gift" onclick="showPopup()">🎁</div>
+    <div class="gift-text">Нажми меня</div>
+</div>
+<div id="overlay" class="overlay" onclick="closePopup()"></div>
+<div id="popup" class="popup">
+    <p>Ты наше счастье, мы тебя очень любим! 💖</p>
+    <button onclick="closePopup()">Закрыть</button>
+</div>
+</body>
+</html>
